@@ -5,6 +5,7 @@ namespace MOS_UAP_Fix;
 use \WP_User;
 
 use function \get_user_by;
+use function \get_option;
 
 define( __NAMESPACE__ . '\NO_ID', 0 );
 define( __NAMESPACE__ . '\AFF_PARAM_NAME', 'id' );
@@ -143,4 +144,10 @@ function set_user_as_affiliate( int $user_id ): void {
 		'status' => '%d',
 	];
 	$wpdb->insert( $table, $data, $formats );
+}
+
+function is_plugin_active(string $plugin_slug): bool {
+	$full_plugin_name = "$plugin_slug/$plugin_slug.php";
+	$active_plugins = get_option( 'active_plugins' );
+	return in_array($full_plugin_name, $active_plugins);
 }
