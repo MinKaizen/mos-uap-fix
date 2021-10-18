@@ -2,6 +2,9 @@
 
 namespace MOS_UAP_Fix;
 
+use function \add_action;
+use function \update_user_meta;
+
 /**
  * Main Plugin File
  *
@@ -35,7 +38,17 @@ define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
+// Github Update constans
+define( NS . 'GITHUB_USER', 'MinKaizen' );
+define( NS . 'GITHUB_REPO', 'mos-uap-fix' );
+
 require_once( PLUGIN_DIR . '/includes/Plugin.php' );
+require_once( PLUGIN_DIR . '/includes/Updater.php' );
 
 $plugin = Plugin::instance();
 $plugin->init();
+
+$updater = new Updater( __FILE__ );
+$updater->set_username( GITHUB_USER );
+$updater->set_repository( GITHUB_REPO );
+$updater->initialize();
