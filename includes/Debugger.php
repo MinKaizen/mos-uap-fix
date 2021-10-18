@@ -2,6 +2,8 @@
 
 namespace MOS_UAP_Fix;
 
+require_once( PLUGIN_DIR . '/includes/functions.php' );
+
 class Debugger {
 
 	const ROUTE = '/mos-uap-fix-debug';
