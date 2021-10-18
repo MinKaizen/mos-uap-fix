@@ -39,37 +39,10 @@ define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once( PLUGIN_DIR . '/includes/functions.php' );
+require_once( PLUGIN_DIR . '/includes/Plugin.php' );
 
-// Generate and replace cookie if aff param is present
-add_action( 'init', function() {
-	if ( !aff_param_is_present() ) {
-		// No param is set. Do nothing
-		return;
-	}
-
-	$sponsor_username = get_username_from_param();
-	$sponsor_id = get_id_by_username( $sponsor_username );
-	if ( $sponsor_id === NO_ID ) {
-		// User doesn't exist. Do nothing
-		return;
-	} else {
-		set_sponsor_cookie( $sponsor_id );
-	}
-}, 10, 0 );
-
-// On user register, create sponsor relationship
-add_action( 'user_register', function( $user_id ) {
-	$sponsor_id = get_sponsor_id_from_cookie();
-	if ( $sponsor_id !== NO_ID ) {
-		set_sponsor_relationship( $user_id, $sponsor_id );
-	}
-}, 10, 1 );
-
-// On user register, set user as affiliate
-add_action( 'user_register', function( $user_id ) {
-	set_user_as_affiliate( $user_id );
-}, 10, 1 );
-
+$plugin = Plugin::instance();
+$plugin->init();
 
 add_action( 'init', function() {
 	main();
