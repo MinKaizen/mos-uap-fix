@@ -38,7 +38,6 @@ define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-require_once( PLUGIN_DIR . '/includes/functions.php' );
 require_once( PLUGIN_DIR . '/includes/Plugin.php' );
 
 $plugin = Plugin::instance();
