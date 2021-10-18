@@ -3,6 +3,7 @@
 namespace MOS_UAP_Fix;
 
 require_once( PLUGIN_DIR . '/includes/functions.php' );
+require_once( PLUGIN_DIR . '/includes/Debugger.php' );
 
 class Plugin {
 
@@ -24,6 +25,7 @@ class Plugin {
 		}
 
 		$this->register_hooks();
+		Debugger::instance()->init();
 	}
 
 	private function pre_init_check(): void {
