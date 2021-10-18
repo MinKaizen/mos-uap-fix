@@ -30,7 +30,13 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( __NAMESPACE__ . '\PLUGIN_DIR', __DIR__ );
+// Plugin constants
+define( __NAMESPACE__ . '\NS', __NAMESPACE__ . '\\' );
+define( NS . 'PLUGIN_NAME', 'mos-uap-fix' );
+define( NS . 'PLUGIN_VERSION', '1.0.0' );
+define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once( PLUGIN_DIR . '/includes/functions.php' );
 
