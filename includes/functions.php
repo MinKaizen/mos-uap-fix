@@ -151,3 +151,58 @@ function is_plugin_active(string $plugin_slug): bool {
 	$active_plugins = get_option( 'active_plugins' );
 	return in_array($full_plugin_name, $active_plugins);
 }
+
+/**
+ * @return string - The current request url, including http[s] and any query string parameters
+ */
+function current_url(): string {
+	if (empty($_SERVER)) {
+		return '';
+	}
+
+	$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+	$full_url = "$protocol://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	return $full_url;
+}
+
+/**
+ * @param bool $include_params - whether to include query string parameters
+ * @return string - The current request uri, with leading slash, but without traiing slash
+ */
+function current_request_uri(bool $include_params = false): string {
+	$url = parse_url(current_url());
+	$request_uri = $url['path'] ?? '';
+
+	if ($include_params && !empty($url['query'])) {
+		// Include query string parameters
+		$query = $url['query'];
+		$request_uri = "$request_uri?$query";
+	}
+
+	// Strip trailing slash unless request uri is root (/)
+	if ($request_uri !== '/') {
+		$request_uri = rtrim($request_uri, '/');
+	}
+
+	return $request_uri;
+}
+
+/**
+ * @param string $uri - the requst uri to compare to. Can include leading and trailing slashes, but no query parameters
+ * @return bool - whether or not the current request uri matches the given string
+ */
+function current_request_uri_is(string $uri): bool {
+	$current_uri = current_request_uri();
+
+	// Add leading slash
+	if (substr($uri, 0, 1) !== '/') {
+		$uri = '/' . $uri;
+	}
+
+	// Strip trailing slash
+	if ($uri !== '/') {
+		$uri = rtrim($uri, '/');
+	}
+
+	return $current_uri === $uri;
+}
