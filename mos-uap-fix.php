@@ -2,9 +2,6 @@
 
 namespace MOS_UAP_Fix;
 
-use function \add_action;
-use function \update_user_meta;
-
 /**
  * Main Plugin File
  *
