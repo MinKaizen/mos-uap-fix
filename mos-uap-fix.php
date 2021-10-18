@@ -2,14 +2,11 @@
 
 namespace MOS_UAP_Fix;
 
-use function \add_action;
-use function \update_user_meta;
-
 /**
  * Main Plugin File
  *
  * @link              https://github.com/MinKaizen/mos-uap-fix
- * @since             1.0.0
+ * @since             1.0.1
  * @package           MOS_UAP_Fix
  *
  * @wordpress-plugin
