@@ -85,12 +85,12 @@ class Plugin {
 			if ( $sponsor_id !== NO_ID ) {
 				set_sponsor_relationship( $user_id, $sponsor_id );
 			}
-		}, 10, 1 );
+		}, 999, 1 );
 
-		// On user register, set user as affiliate
-		add_action( 'user_register', function( $user_id ) {
-			set_user_as_affiliate( $user_id );
-		}, 10, 1 );
+		// // On user register, set user as affiliate
+		// add_action( 'user_register', function( $user_id ) {
+		// 	set_user_as_affiliate( $user_id );
+		// }, 10, 1 );
 	}
 
 }
