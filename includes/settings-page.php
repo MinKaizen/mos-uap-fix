@@ -71,7 +71,6 @@ function param_identifier_setting_render() {
 		<option value="username" <?php echo ($param_identifier == 'username' ? 'selected' : ''); ?>>Username</option>
 		<option value="wpid" <?php echo ($param_identifier == 'wpid' ? 'selected' : ''); ?>>WPID</option>
 		<option value="email" <?php echo ($param_identifier == 'email' ? 'selected' : ''); ?>>Email</option>
-		<option value="affid" <?php echo ($param_identifier == 'affid' ? 'selected' : ''); ?>>UAP Aff ID</option>
 	</select>
 	<span class="note">What should be used in the affiliate link to identify an affiliate?</span>
 	<?php
