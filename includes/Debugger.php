@@ -26,28 +26,36 @@ class Debugger {
 	}
 
 	public function main() {
+		$settings = Settings::instance();
+
 		echo '<pre style="font-size: 1.5em;">';
 
-		echo '<strong>';
-		echo 'Sponsor username (param) ';
-		echo '</strong>';
-		$username = get_username_from_param();
+		echo '<strong>Param Name: </strong>';
+		echo $settings->get_param_name();
+		echo '<br>';
+
+		echo '<strong>Param Identifier: </strong>';
+		echo $settings->get_param_identifier();
+		echo '<br>';
+
+		echo '<strong>Param Value: </strong>';
+		$param_value = $_GET[Settings::instance()->get_param_name()];
 		if (aff_param_is_present()) {
-			echo $username;
+			echo $param_value;
 		} else {
 			echo "(Param not present!)";
 		}
 		echo '<br>';
 
 		echo '<strong>';
-		echo 'Sponsor id: ';
+		echo 'Sponsor WPID (param): ';
 		echo '</strong>';
-		$id = get_id_by_username($username);
+		$id = get_sponsor_wpid_from_param();
 		echo $id;
 		echo '<br>';
 
 		echo '<strong>';
-		echo 'Sponsor id (cookie): ';
+		echo 'Sponsor WPID (cookie): ';
 		echo '</strong>';
 		$id_cookie = get_sponsor_id_from_cookie();
 		echo $id_cookie;
