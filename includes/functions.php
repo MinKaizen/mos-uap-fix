@@ -15,11 +15,6 @@ function aff_param_is_present(): bool {
 	return !empty($_GET[Settings::instance()->get_param_name()]);
 }
 
-function get_username_from_param(): string {
-	$username = aff_param_is_present() ? (string) $_GET[Settings::instance()->get_param_name()] : '';
-	return $username;
-}
-
 function get_sponsor_wpid_from_param(): int {
 	$param_value = $_GET[Settings::instance()->get_param_name()] ?? null;
 
