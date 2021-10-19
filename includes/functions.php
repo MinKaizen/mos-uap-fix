@@ -8,17 +8,15 @@ use function \get_user_by;
 use function \get_option;
 
 define( __NAMESPACE__ . '\NO_ID', 0 );
-define( __NAMESPACE__ . '\AFF_PARAM_NAME', 'id' );
-define( __NAMESPACE__ . '\COOKIE_NAME', 'mos_sponsor_wpid' );
-define( __NAMESPACE__ . '\COOKIE_EXPIRATION_DAYS', 360 );
 
+require_once('Settings.php');
 
 function aff_param_is_present(): bool {
-	return !empty($_GET[AFF_PARAM_NAME]);
+	return !empty($_GET[Settings::instance()->get_param_name()]);
 }
 
 function get_username_from_param(): string {
-	$username = aff_param_is_present() ? (string) $_GET[AFF_PARAM_NAME] : '';
+	$username = aff_param_is_present() ? (string) $_GET[Settings::instance()->get_param_name()] : '';
 	return $username;
 }
 
@@ -57,9 +55,9 @@ function get_domain_name(): string {
 }
 
 function set_sponsor_cookie( int $id ): void {
-	$name = COOKIE_NAME;
+	$name = Settings::instance()->get_cookie_name();
 	$value = (string) $id;
-	$expiration = time() + COOKIE_EXPIRATION_DAYS * 24 * 60 * 60;
+	$expiration = time() + Settings::instance()->get_cookie_expiration_days() * 24 * 60 * 60;
 	$path = '/'; // available on entire domain
 	$domain = get_domain_name();
 	$secure = false;
@@ -68,16 +66,16 @@ function set_sponsor_cookie( int $id ): void {
 	// Sets the cookie, but requires refresh
 	setcookie( $name, $value, $expiration, $path, $domain, $secure, $httponly );
 	// Also set the cookie manually for this session
-	$_COOKIE[COOKIE_NAME] = $value;
+	$_COOKIE[Settings::instance()->get_cookie_name()] = $value;
 }
 
 function get_sponsor_id_from_cookie(): int {
-	if (empty($_COOKIE[COOKIE_NAME])) {
+	if (empty($_COOKIE[Settings::instance()->get_cookie_name()])) {
 		$id = NO_ID;
 		return $id;
 	}
 
-	$id = (int) $_COOKIE[COOKIE_NAME];
+	$id = (int) $_COOKIE[Settings::instance()->get_cookie_name()];
 	return $id;
 }
 
