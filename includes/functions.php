@@ -20,6 +20,30 @@ function get_username_from_param(): string {
 	return $username;
 }
 
+function get_sponsor_wpid_from_param(): int {
+	$param_value = $_GET[Settings::instance()->get_param_name()] ?? null;
+
+	if (empty($param_value)) {
+		return NO_ID;
+	}
+
+	$identifier_map = [
+		'username' => 'login',
+		'email' => 'email',
+		'wpid' => 'id',
+	];
+
+	$identifier = Settings::instance()->get_param_identifier();
+	$identifier_mapped = $identifier_map[$identifier];
+	$sponsor = get_user_by($identifier_mapped, $param_value);
+
+	if (!($sponsor instanceof WP_User)) {
+		return NO_ID;
+	}
+
+	return $sponsor->ID;
+}
+
 function get_id_by_username(string $username): int {
 	$user = get_user_by('login', $username);
 	if ($user instanceof WP_User) {
