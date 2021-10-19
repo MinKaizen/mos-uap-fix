@@ -71,8 +71,7 @@ class Plugin {
 				return;
 			}
 
-			$sponsor_username = get_username_from_param();
-			$sponsor_id = get_id_by_username( $sponsor_username );
+			$sponsor_id = get_sponsor_wpid_from_param();
 			if ( $sponsor_id === NO_ID ) {
 				// User doesn't exist. Do nothing
 				return;
