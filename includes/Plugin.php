@@ -88,10 +88,12 @@ class Plugin {
 			}
 		}, 999, 1 );
 
-		// // On user register, set user as affiliate
-		// add_action( 'user_register', function( $user_id ) {
-		// 	set_user_as_affiliate( $user_id );
-		// }, 10, 1 );
+		// On user register, set user as affiliate
+		add_action( 'user_register', function( $user_id ) {
+			if (Settings::instance()->get_auto_set_user_as_affiliate()) {
+				set_user_as_affiliate( $user_id );
+			}
+		}, 10, 1 );
 	}
 
 }
