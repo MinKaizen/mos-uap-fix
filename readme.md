@@ -1,9 +1,5 @@
 # MOS UAP Fix
 
-## TO DO
-
-- Use a hash to obfuscate the cookie value.
-
 ## Description
 
 Fixes a broken feature from the plugin `Ultimate Affiliate Pro` (by Indeed). Namely:
