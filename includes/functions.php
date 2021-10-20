@@ -88,7 +88,7 @@ function set_sponsor_cookie( int $id ): void {
 	$_COOKIE[Settings::instance()->get_cookie_name()] = $value;
 }
 
-function get_sponsor_id_from_cookie(): int {
+function get_sponsor_wpid_from_cookie(): int {
 	if (empty($_COOKIE[Settings::instance()->get_cookie_name()])) {
 		$id = NO_ID;
 		return $id;

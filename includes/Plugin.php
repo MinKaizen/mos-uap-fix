@@ -82,7 +82,7 @@ class Plugin {
 
 		// On user register, create sponsor relationship
 		add_action( 'user_register', function( $user_id ) {
-			$sponsor_id = get_sponsor_id_from_cookie();
+			$sponsor_id = get_sponsor_wpid_from_cookie();
 			if ( $sponsor_id !== NO_ID ) {
 				set_sponsor_relationship( $user_id, $sponsor_id );
 			}

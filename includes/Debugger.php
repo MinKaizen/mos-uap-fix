@@ -57,7 +57,7 @@ class Debugger {
 		echo '<strong>';
 		echo 'Sponsor WPID (cookie): ';
 		echo '</strong>';
-		$id_cookie = get_sponsor_id_from_cookie();
+		$id_cookie = get_sponsor_wpid_from_cookie();
 		echo $id_cookie;
 		echo '<br>';
 		echo '<br>';
