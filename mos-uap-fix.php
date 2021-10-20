@@ -35,7 +35,7 @@ define( NS . 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( NS . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( NS . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-// Github Update constans
+// Github Update constants
 define( NS . 'GITHUB_USER', 'MinKaizen' );
 define( NS . 'GITHUB_REPO', 'mos-uap-fix' );
 
