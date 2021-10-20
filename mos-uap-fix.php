@@ -6,14 +6,14 @@ namespace MOS_UAP_Fix;
  * Main Plugin File
  *
  * @link              https://github.com/MinKaizen/mos-uap-fix
- * @since             1.0.1
+ * @since             1.1.0
  * @package           MOS_UAP_Fix
  *
  * @wordpress-plugin
  * Plugin Name:       MOS UAP Fix
  * Plugin URI:        https://github.com/MinKaizen/mos-uap-fix
  * Description:       Hacky fix for UAP plugin (Indeed Ultimate Affiliate Pro)
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            MinKaizen
  * Author URI:        https://github.com/MinKaizen/
  * License:           GPL-2.0+
