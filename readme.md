@@ -27,6 +27,7 @@ Fixes a broken feature from the plugin `Ultimate Affiliate Pro` (by Indeed). Nam
 
 1. `Ultimate Affiliate Pro` needs to be installed and activated.
 2. PHP >= 7.4
+3. `ReWrite Referrals` enabled (`WP Dashboard` > `Ultimate Affiliate Pro` > `Extensions` > `ReWrite Referrals`)
 
 > Note: If migrating from a new site, some required tables might not be available, causing a fatal error. In this case, simply deactivate and reactate the `Ultimate Affiliate Pro` plugin.
 
