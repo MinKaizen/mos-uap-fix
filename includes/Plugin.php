@@ -5,10 +5,12 @@ namespace MOS_UAP_Fix;
 require_once( PLUGIN_DIR . '/includes/functions.php' );
 require_once( PLUGIN_DIR . '/includes/Debugger.php' );
 require_once( PLUGIN_DIR . '/includes/Settings.php' );
+require_once( PLUGIN_DIR . '/includes/Logger.php' );
 
 class Plugin {
 
 	private static ?self $instance;
+	private Logger $logger;
 	private array $init_errors = ['Did not run pre init checks from Plugin class'];
 
 	public static function instance(): self {
@@ -25,6 +27,7 @@ class Plugin {
 			return;
 		}
 
+		$this->logger = new Logger('mos-uap-fix', 'mos-uap-fix.log');
 		$this->register_hooks();
 		Settings::instance()->init();
 		Debugger::instance()->init();
@@ -85,6 +88,7 @@ class Plugin {
 			// Set user as affiliate
 			if (Settings::instance()->get_auto_set_user_as_affiliate()) {
 				set_user_as_affiliate( $user_id );
+				$affiliated_by_this = true;
 			}
 
 			// Create sponsor relationship
@@ -92,8 +96,24 @@ class Plugin {
 				$sponsor_id = get_sponsor_wpid_from_cookie();
 				if ( $sponsor_id !== NO_ID ) {
 					set_sponsor_relationship( $user_id, $sponsor_id );
+					$sponsor_set_by_this = true;
 				}
 			}
+
+			// Generate log
+			$affid = get_affid_by_id( $user_id );
+			$sponsor = get_sponsor($user_id);
+			$log_data = [
+				'user_id' => $user_id,
+				'affiliated' => !empty($affid),
+				'user_affid' => $affid,
+				'affiliated_by' => !empty($affiliated_by_this) ? 'mos-uap-fix' : 'uap',
+				'sponsor_set' => !empty($sponsor),
+				'sponsor_id' => $sponsor->ID ?? 0,
+				'sponsor_set_by' => !empty($sponsor_set_by_this) ? 'mos-uap-fix' : 'uap',
+			];
+			$log_message = json_encode($log_data);
+			$this->logger->log($log_message);
 		}, 999, 1 );
 	}
 
