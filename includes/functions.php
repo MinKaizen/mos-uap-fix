@@ -82,6 +82,11 @@ function set_sponsor_cookie( int $id ): void {
 	$secure = false;
 	$httponly = true;
 
+	// Encrypt value if encryption is enabled
+	if (Settings::instance()->get_encryption()) {
+		$value = encrypt($value);
+	}
+
 	// Sets the cookie, but requires refresh
 	setcookie( $name, $value, $expiration, $path, $domain, $secure, $httponly );
 	// Also set the cookie manually for this session
@@ -94,8 +99,14 @@ function get_sponsor_wpid_from_cookie(): int {
 		return $id;
 	}
 
-	$id = (int) $_COOKIE[Settings::instance()->get_cookie_name()];
-	return $id;
+	$id = $_COOKIE[Settings::instance()->get_cookie_name()];
+
+	// Decrypt value if encryption is enabled
+	if (Settings::instance()->get_encryption()) {
+		$id = decrypt((string) $id);
+	}
+
+	return (int) $id;
 }
 
 function set_sponsor_relationship( int $user_id, int $sponsor_id ): void {
@@ -252,4 +263,26 @@ function get_id_by_affid(int $user_affid): int {
 	$result = $wpdb->get_var($query);
 	$user_id = $result ? (int) $result : NO_ID;
 	return $user_id;
+}
+
+function encrypt(string $message): ?string {
+	$hash_algo = 'sha256';
+	$cipher_algo = 'AES-256-CBC';
+	$secret_key = '3jflD(23j%j';
+	$secret_iv = '9H89kHf56fg';
+	$key = hash($hash_algo,$secret_key);
+	$iv = substr(hash($hash_algo,$secret_iv),0,16);
+	$output = base64_encode(openssl_encrypt($message,$cipher_algo,$key,0,$iv)) ?: null;
+	return $output;
+}
+
+function decrypt(string $message): ?string {
+	$hash_algo = 'sha256';
+	$cipher_algo = 'AES-256-CBC';
+	$secret_key = '3jflD(23j%j';
+	$secret_iv = '9H89kHf56fg';
+	$key = hash($hash_algo,$secret_key);
+	$iv = substr(hash($hash_algo,$secret_iv),0,16);
+	$output = openssl_decrypt(base64_decode($message),$cipher_algo,$key,0,$iv) ?: null;
+	return $output;
 }

@@ -61,4 +61,8 @@ class Settings {
 		$auto_set_user_as_affiliate = $this->options[self::AUTO_SET_USER_AS_AFFILIATE] ?? self::DEFAULTS[self::AUTO_SET_USER_AS_AFFILIATE];
 		return (bool) $auto_set_user_as_affiliate;
 	}
+
+	public function get_encryption(): bool {
+		return true;
+	}
 }
