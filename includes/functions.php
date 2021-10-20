@@ -223,3 +223,8 @@ function current_request_uri_is(string $uri): bool {
 
 	return $current_uri === $uri;
 }
+
+function uap_cookie_is_present(): bool {
+	return !empty($_COOKIE['uap_referral']);
+}
+
