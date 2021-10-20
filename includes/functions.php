@@ -228,3 +228,28 @@ function uap_cookie_is_present(): bool {
 	return !empty($_COOKIE['uap_referral']);
 }
 
+function get_sponsor(int $user_id): ?WP_User {
+	$sponsor_affid = get_sponsor_affid($user_id);
+	$sponsor_id = get_id_by_affid($sponsor_affid);
+	$sponsor = get_user_by('id', $sponsor_id);
+	$sponsor = $sponsor instanceof WP_User ? $sponsor : null;
+	return $sponsor;
+}
+
+function get_sponsor_affid(int $user_id): int {
+	global $wpdb;
+	$table = $wpdb->prefix . 'uap_affiliate_referral_users_relations';
+	$query = "SELECT affiliate_id FROM $table WHERE referral_wp_uid=$user_id LIMIT 1;";
+	$result = $wpdb->get_var($query);
+	$sponsor_affid = $result ? (int) $result : NO_ID;
+	return $sponsor_affid;
+}
+
+function get_id_by_affid(int $user_affid): int {
+	global $wpdb;
+	$table = $wpdb->prefix . 'uap_affiliates';
+	$query = "SELECT uid FROM $table WHERE id=$user_affid LIMIT 1;";
+	$result = $wpdb->get_var($query);
+	$user_id = $result ? (int) $result : NO_ID;
+	return $user_id;
+}
