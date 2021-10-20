@@ -27,6 +27,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Set timezone
+date_default_timezone_set('Australia/Sydney');
+
 // Plugin constants
 define( __NAMESPACE__ . '\NS', __NAMESPACE__ . '\\' );
 define( NS . 'PLUGIN_NAME', 'mos-uap-fix' );
