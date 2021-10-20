@@ -88,9 +88,11 @@ class Plugin {
 			}
 
 			// Create sponsor relationship
-			$sponsor_id = get_sponsor_wpid_from_cookie();
-			if ( $sponsor_id !== NO_ID ) {
-				set_sponsor_relationship( $user_id, $sponsor_id );
+			if (!uap_cookie_is_present()) {
+				$sponsor_id = get_sponsor_wpid_from_cookie();
+				if ( $sponsor_id !== NO_ID ) {
+					set_sponsor_relationship( $user_id, $sponsor_id );
+				}
 			}
 		}, 999, 1 );
 	}
